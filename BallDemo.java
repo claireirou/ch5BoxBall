@@ -61,7 +61,7 @@ public class BallDemo
     /**
      * 
      */
-    public void boxBounce(int amount)
+     public void boxBounce(int amount)
     {
         myCanvas.erase();
         HashSet<BoxBall> boxBalls = new HashSet<>();
@@ -113,21 +113,13 @@ public class BallDemo
             }
             myCanvas.wait(50);
             
-                // Make them bounce 
-                boolean finished = false;
-                while(!finished) {
-                    for(BoxBall boxBall : boxBalls) {
-                        myCanvas.wait(5);
-                        boxBall.move();
-                        if(boxBall.getYSpeed() == 0 && boxBall.getXSpeed() == 0) {
-                            finishedBalls ++;
-                        }
-                    }
-                    if(finishedBalls == boxBalls.size()) {
-                        finished = true;
-                    }
+            // Make them bounce
+            for(int i=0; i<300; i++) {
+                for(BoxBall boxBall : boxBalls) {
+                    myCanvas.wait(1);
+                    boxBall.move();
+                }
             }
-        
        }
     }
 }

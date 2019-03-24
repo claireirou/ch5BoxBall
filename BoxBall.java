@@ -21,13 +21,14 @@ public class BoxBall
     private int diameter;
     private int xPosition;
     private int yPosition;
-    private final int bottomPosition;             // y position of bottom of box
-    private final int topPosition;                // y postiion of top of box
-    private final int leftPosition;               // x position of left wall
-    private final int rightPosition;              // x position of right wall
+    private final int bottomPosition;               // y position of bottom of box
+    private final int topPosition;                  // y postiion of top of box
+    private final int leftPosition;                 // x position of left wall
+    private final int rightPosition;                // x position of right wall
     private Canvas canvas;
-    private int ySpeed = rand.nextInt(50) - 25;     // initial vertical speed
-    private int xSpeed = rand.nextInt(50) - 25;     // initial lateral speed
+    private int ySpeed = rand.nextInt(14) - 7;     // initial vertical speed
+    private int xSpeed = rand.nextInt(14) - 7;     // initial lateral speed
+    private boolean finished;                       // determines if ball is in motion or not
     
 
     /**
@@ -55,6 +56,7 @@ public class BoxBall
         leftPosition = leftPos;
         rightPosition = rightPos;
         canvas = drawingCanvas;
+        finished = false;
     }
 
     /**
@@ -130,6 +132,9 @@ public class BoxBall
         
         // draw again at new position
         draw();
+        /*if(-3 < ySpeed && ySpeed < 3 && -3 < xSpeed && xSpeed < 3) {
+            finished = true;
+        }*/
     }    
 
     /**
@@ -170,5 +175,14 @@ public class BoxBall
     public int getDiameter()
     {
         return diameter;
+    }
+    
+    /**
+     * returns the ball movement status. False for
+     *      moving, true for done moving
+     */
+    public boolean getFinished()
+    {
+        return finished;
     }
 }
