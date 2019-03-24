@@ -16,7 +16,6 @@ import java.util.Random;
 public class BallDemo   
 {
     private Canvas myCanvas;
-    private HashSet<BoxBall> boxBalls = new HashSet<>();
     private Random rand = new Random();
     private Color color;
 
@@ -64,11 +63,15 @@ public class BallDemo
      */
     public void boxBounce(int amount)
     {
+        myCanvas.erase();
+        HashSet<BoxBall> boxBalls = new HashSet<>();
+        
         int numberOfBalls = 0;
-        int ground = 450;   // position of the bottom of the box
-        int top = 25;       // position of the top of the box
-        int left = 50;      // position of the left wall
-        int right = 550;    // position of the right wall
+        int finishedBalls = 0;  // counter for balls done bouncing
+        int ground = 450;       // position of the bottom of the box
+        int top = 25;           // position of the top of the box
+        int left = 50;          // position of the left wall
+        int right = 550;        // position of the right wall
         
         int diameter;       
         int xPos;
@@ -77,40 +80,54 @@ public class BallDemo
         int green;
         int blue;
         
-        
-        myCanvas.setVisible(true);
-        
-        //draw the box
-        myCanvas.drawLine(left, ground, right, ground);
-        myCanvas.drawLine(left, top, right, top);
-        myCanvas.drawLine(left, top, left, ground);
-        myCanvas.drawLine(right, top, right, ground);
-        
-        // create and show balls
-        while (numberOfBalls != amount) {
-            numberOfBalls ++;
-            diameter = rand.nextInt(20) + 10;
-            xPos = rand.nextInt(right - diameter) + left;   //random initial x position
-            yPos = rand.nextInt(ground - diameter) + top;   //random initial y position
+        if(amount < 5 || amount > 30) {
+            System.out.println("Total number of balls must be between 5 and 30!");
+        } else {
+            myCanvas.setVisible(true);
             
-            red = rand.nextInt(220);
-            green = rand.nextInt(220);
-            blue = rand.nextInt(220);
-            
-            color = new Color(red, green, blue);
-            
-            boxBalls.add(new BoxBall(xPos, yPos, diameter, color, ground, top, left, right, myCanvas));
-        }
+            //draw the box
+            myCanvas.drawLine(left, ground, right, ground);
+            myCanvas.drawLine(left, top, right, top);
+            myCanvas.drawLine(left, top, left, ground);
+            myCanvas.drawLine(right, top, right, ground);
         
-        // Make them bounce
-        boolean finished = false;
-        while(!finished) {
-            for(BoxBall boxBall : boxBalls) {
-                myCanvas.wait(50);
-                boxBall.move();
-               
+            // create balls
+            while (numberOfBalls != amount) {
+                numberOfBalls ++;
+                diameter = rand.nextInt(20) + 10;                       // random diameter
+                xPos = rand.nextInt((right - left) - diameter) + left;  //random initial x position
+                yPos = rand.nextInt((ground - top) - diameter) + top;   //random initial y position
+                
+                //make a random color
+                red = rand.nextInt(220);
+                green = rand.nextInt(220);
+                blue = rand.nextInt(220);
+                color = new Color(red, green, blue);
+                
+                boxBalls.add(new BoxBall(xPos, yPos, diameter, color, ground, top, left, right, myCanvas));
             }
-        }
+            
+            //Draw the balls and wait a bit
+            for(BoxBall boxBall : boxBalls) {
+                boxBall.draw();
+            }
+            myCanvas.wait(50);
+            
+            // Make them bounce
+            boolean finished = false;
+            while(!finished) {
+                for(BoxBall boxBall : boxBalls) {
+                    myCanvas.wait(5);
+                    boxBall.move();
+                    if(boxBall.getYSpeed() == 0 && boxBall.getXSpeed() == 0) {
+                        finishedBalls ++;
+                    }
+                }
+                if(finishedBalls == boxBalls.size()) {
+                    finished = true;
+                }
+            }
         
+       }
     }
 }

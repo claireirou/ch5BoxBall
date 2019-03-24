@@ -26,8 +26,8 @@ public class BoxBall
     private final int leftPosition;               // x position of left wall
     private final int rightPosition;              // x position of right wall
     private Canvas canvas;
-    private int ySpeed = rand.nextInt(14) - 7;     // initial vertical speed
-    private int xSpeed = rand.nextInt(14) - 7;     // initial lateral speed
+    private int ySpeed = rand.nextInt(50) - 25;     // initial vertical speed
+    private int xSpeed = rand.nextInt(50) - 25;     // initial lateral speed
     
 
     /**
@@ -88,7 +88,7 @@ public class BoxBall
         xPosition += xSpeed;
 
         // check if it has hit the bottom of the box
-        if(yPosition >= (bottomPosition - diameter) && (ySpeed > 0 && xSpeed != 0)) {
+        if(yPosition >= (bottomPosition - diameter) && ySpeed > 0) {
            yPosition = (int)(bottomPosition - diameter);
            ySpeed = -ySpeed + ballDegradation;
            if(xSpeed < 0) {
@@ -98,7 +98,7 @@ public class BoxBall
             }
         }
         // check if it has hit the top of the box
-        if(yPosition <= (topPosition) && (ySpeed < 0 && xSpeed != 0)) {
+        if(yPosition <= (topPosition) && ySpeed < 0) {
             yPosition = (int)(topPosition);
             ySpeed = -ySpeed - ballDegradation;
             if(xSpeed < 0) {
@@ -108,7 +108,7 @@ public class BoxBall
             }
         }
         //check if it has hit left wall
-        if (xPosition <= (leftPosition) && (xSpeed < 0 && ySpeed != 0)) {
+        if (xPosition <= (leftPosition) && xSpeed < 0) {
             xPosition = (int)(leftPosition);
             xSpeed = -xSpeed + ballDegradation;
             if(ySpeed < 0) {
@@ -118,7 +118,7 @@ public class BoxBall
             }
         }
         //check if it has hit right wall
-        if (xPosition >= (rightPosition - diameter) && (xSpeed > 0 && ySpeed != 0)) {
+        if (xPosition >= (rightPosition - diameter) && xSpeed > 0) {
             xPosition = (int)(rightPosition - diameter);
             xSpeed = -xSpeed + ballDegradation;
             if(ySpeed < 0) {
@@ -149,10 +149,26 @@ public class BoxBall
     }
     
     /**
-     * return the speed of the ball
+     * return the vertical speed of the ball
      */
-    public int getSpeed()
+    public int getYSpeed()
     {
         return ySpeed;
+    }
+    
+    /**
+     * return the lateral speed of the ball
+     */
+    public int getXSpeed()
+    {
+        return xSpeed;
+    }
+    
+    /**
+     * return the diameter of the ball
+     */
+    public int getDiameter()
+    {
+        return diameter;
     }
 }
