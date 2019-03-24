@@ -113,19 +113,19 @@ public class BallDemo
             }
             myCanvas.wait(50);
             
-            // Make them bounce
-            boolean finished = false;
-            while(!finished) {
-                for(BoxBall boxBall : boxBalls) {
-                    myCanvas.wait(5);
-                    boxBall.move();
-                    if(boxBall.getYSpeed() == 0 && boxBall.getXSpeed() == 0) {
-                        finishedBalls ++;
+                // Make them bounce 
+                boolean finished = false;
+                while(!finished) {
+                    for(BoxBall boxBall : boxBalls) {
+                        myCanvas.wait(5);
+                        boxBall.move();
+                        if(boxBall.getYSpeed() == 0 && boxBall.getXSpeed() == 0) {
+                            finishedBalls ++;
+                        }
                     }
-                }
-                if(finishedBalls == boxBalls.size()) {
-                    finished = true;
-                }
+                    if(finishedBalls == boxBalls.size()) {
+                        finished = true;
+                    }
             }
         
        }
