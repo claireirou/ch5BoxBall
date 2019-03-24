@@ -37,7 +37,10 @@ public class BoxBall
      * @param yPos  the vertical coordinate of the ball
      * @param ballDiameter  the diameter (in pixels) of the ball
      * @param ballColor  the color of the ball
-     * @param groundPos  the position of the ground (where the wall will bounce)
+     * @param bottomPos  the position of the bottom of the box (where the ball will bounce)
+     * @param topPos    the position of the top of the box (where the ball will bounce)
+     * @param leftPos   the position of the left wall (where the ball will bounce)
+     * @param rightPos  the position of the right wall (where the ball will bounce)
      * @param drawingCanvas  the canvas to draw this ball on
      */
     public BoxBall(int xPos, int yPos, int ballDiameter, Color ballColor,
@@ -95,8 +98,8 @@ public class BoxBall
             }
         }
         // check if it has hit the top of the box
-        if(yPosition <= (topPosition + diameter) && (ySpeed < 0 && xSpeed != 0)) {
-            yPosition = (int)(topPosition + diameter);
+        if(yPosition <= (topPosition) && (ySpeed < 0 && xSpeed != 0)) {
+            yPosition = (int)(topPosition);
             ySpeed = -ySpeed - ballDegradation;
             if(xSpeed < 0) {
                xSpeed += ballDegradation;
@@ -105,8 +108,8 @@ public class BoxBall
             }
         }
         //check if it has hit left wall
-        if (xPosition <= (leftPosition + diameter) && (xSpeed < 0 && ySpeed != 0)) {
-            xPosition = (int)(leftPosition + diameter);
+        if (xPosition <= (leftPosition) && (xSpeed < 0 && ySpeed != 0)) {
+            xPosition = (int)(leftPosition);
             xSpeed = -xSpeed + ballDegradation;
             if(ySpeed < 0) {
                ySpeed += ballDegradation;
@@ -125,7 +128,6 @@ public class BoxBall
             }
         }
         
-
         // draw again at new position
         draw();
     }    

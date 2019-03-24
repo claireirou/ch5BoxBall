@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.Random;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
@@ -14,6 +16,9 @@ import java.awt.Color;
 public class BallDemo   
 {
     private Canvas myCanvas;
+    private HashSet<BoxBall> boxBalls = new HashSet<>();
+    private Random rand = new Random();
+    private Color color;
 
     /**
      * Create a BallDemo object. Creates a fresh canvas and makes it visible.
@@ -52,5 +57,53 @@ public class BallDemo
                 finished = true;
             }
         }
+    }
+    
+    /**
+     * 
+     */
+    public void boxBounce(int amount)
+    {
+        int numberOfBalls = 0;
+        int ground = 450;   // position of the bottom of the box
+        int top = 25;       // position of the top of the box
+        int left = 50;      // position of the left wall
+        int right = 550;    // position of the right wall
+        
+        int diameter;       
+        int xPos;
+        int yPos;
+        int red;
+        int green;
+        int blue;
+        
+        
+        myCanvas.setVisible(true);
+        
+        //draw the box
+        myCanvas.drawLine(left, ground, right, ground);
+        myCanvas.drawLine(left, top, right, top);
+        myCanvas.drawLine(left, top, left, ground);
+        myCanvas.drawLine(right, top, right, ground);
+        
+        // create and show balls
+        while (numberOfBalls != amount) {
+            numberOfBalls ++;
+            diameter = rand.nextInt(20) + 10;
+            xPos = rand.nextInt(550 - diameter) + 50;   //random initial x position
+            yPos = rand.nextInt(425 - diameter) + 25;   //random initial y position
+            red = rand.nextInt(220);
+            green = rand.nextInt(220);
+            blue = rand.nextInt(220);
+            color = new Color(red, green, blue);
+            boxBalls.add(new BoxBall(xPos, yPos, diameter, color, ground, top, left, right, myCanvas));
+        }
+        
+        // Make them bounce
+        boolean finished = false;
+        while(!finished) {
+            
+        }
+        
     }
 }
