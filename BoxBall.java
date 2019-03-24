@@ -3,12 +3,15 @@ import java.awt.geom.*;
 import java.util.Random;
 
 /**
- * Class BoxBall - A simulation of one or more balls bouncing inside of a box. The initial
- * position and speed of the balls is random.
+ * Class BoxBall - A simulation of a ball bouncing inside of a box with gravity effect. 
+ * The properties and movement of the ball is determined by the ball itself. The ball 
+ * is given a random vertical and lateral speed and will move in that direction and 
+ * loose speed over time. The ball will bounce of the walls of a box.
  *
  * @author Claire Iroudayassamy
  * @version 2019.03.24
  */
+
 public class BoxBall
 {
     private static final int GRAVITY = 3;  // effect of gravity
@@ -26,11 +29,9 @@ public class BoxBall
     private final int leftPosition;                 // x position of left wall
     private final int rightPosition;                // x position of right wall
     private Canvas canvas;
-    private int ySpeed = rand.nextInt(14) - 7;     // initial vertical speed
-    private int xSpeed = rand.nextInt(14) - 7;     // initial lateral speed
-    private boolean finished;                       // determines if ball is in motion or not
+    private int ySpeed = rand.nextInt(14) - 7;      // initial vertical speed
+    private int xSpeed = rand.nextInt(14) - 7;      // initial lateral speed
     
-
     /**
      * Constructor for objects of class BouncingBall
      *
@@ -56,7 +57,6 @@ public class BoxBall
         leftPosition = leftPos;
         rightPosition = rightPos;
         canvas = drawingCanvas;
-        finished = false;
     }
 
     /**
@@ -132,9 +132,6 @@ public class BoxBall
         
         // draw again at new position
         draw();
-        /*if(-3 < ySpeed && ySpeed < 3 && -3 < xSpeed && xSpeed < 3) {
-            finished = true;
-        }*/
     }    
 
     /**
@@ -167,22 +164,5 @@ public class BoxBall
     public int getXSpeed()
     {
         return xSpeed;
-    }
-    
-    /**
-     * return the diameter of the ball
-     */
-    public int getDiameter()
-    {
-        return diameter;
-    }
-    
-    /**
-     * returns the ball movement status. False for
-     *      moving, true for done moving
-     */
-    public boolean getFinished()
-    {
-        return finished;
     }
 }

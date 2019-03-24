@@ -6,6 +6,9 @@ import java.util.Random;
  * Class BallDemo - a short demonstration showing animation with the 
  * Canvas class. 
  *
+ * @author Claire Iroudayassamy
+ * @version 2019.03.24
+ *
  * @author Bill Crosbie
  * @version 2015-March-BB
  *
@@ -59,7 +62,9 @@ public class BallDemo
     }
     
     /**
-     * 
+     * Simulates a given number of balls bouncing
+     *      inside a box
+     * @param amount The amount of balls in the box
      */
      public void boxBounce(int amount)
     {
@@ -67,7 +72,6 @@ public class BallDemo
         HashSet<BoxBall> boxBalls = new HashSet<>();
         
         int numberOfBalls = 0;
-        int finishedBalls = 0;  // counter for balls done bouncing
         int ground = 450;       // position of the bottom of the box
         int top = 25;           // position of the top of the box
         int left = 50;          // position of the left wall
