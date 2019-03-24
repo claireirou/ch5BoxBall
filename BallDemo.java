@@ -90,19 +90,26 @@ public class BallDemo
         while (numberOfBalls != amount) {
             numberOfBalls ++;
             diameter = rand.nextInt(20) + 10;
-            xPos = rand.nextInt(550 - diameter) + 50;   //random initial x position
-            yPos = rand.nextInt(425 - diameter) + 25;   //random initial y position
+            xPos = rand.nextInt(right - diameter) + left;   //random initial x position
+            yPos = rand.nextInt(ground - diameter) + top;   //random initial y position
+            
             red = rand.nextInt(220);
             green = rand.nextInt(220);
             blue = rand.nextInt(220);
+            
             color = new Color(red, green, blue);
+            
             boxBalls.add(new BoxBall(xPos, yPos, diameter, color, ground, top, left, right, myCanvas));
         }
         
         // Make them bounce
         boolean finished = false;
         while(!finished) {
-            
+            for(BoxBall boxBall : boxBalls) {
+                myCanvas.wait(50);
+                boxBall.move();
+               
+            }
         }
         
     }

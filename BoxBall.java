@@ -147,4 +147,12 @@ public class BoxBall
     {
         return yPosition;
     }
+    
+    /**
+     * return the speed of the ball
+     */
+    public int getSpeed()
+    {
+        return ySpeed;
+    }
 }
