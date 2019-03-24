@@ -72,10 +72,12 @@ public class BallDemo
         HashSet<BoxBall> boxBalls = new HashSet<>();
         
         int numberOfBalls = 0;
+        int waitTime = 0;       // determines wait time for animation
         int ground = 450;       // position of the bottom of the box
         int top = 25;           // position of the top of the box
         int left = 50;          // position of the left wall
         int right = 550;        // position of the right wall
+        
         
         int diameter;       
         int xPos;
@@ -111,6 +113,8 @@ public class BallDemo
                 boxBalls.add(new BoxBall(xPos, yPos, diameter, color, ground, top, left, right, myCanvas));
             }
             
+            waitTime = (int) Math.round(30 / (numberOfBalls * 0.8));
+            
             //Draw the balls and wait a bit
             for(BoxBall boxBall : boxBalls) {
                 boxBall.draw();
@@ -118,9 +122,9 @@ public class BallDemo
             myCanvas.wait(50);
             
             // Make them bounce
-            for(int i=0; i<300; i++) {
+            for(int i=0; i<350; i++) {
                 for(BoxBall boxBall : boxBalls) {
-                    myCanvas.wait(1);
+                    myCanvas.wait(waitTime);
                     boxBall.move();
                 }
             }

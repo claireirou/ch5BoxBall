@@ -14,11 +14,11 @@ import java.util.Random;
 
 public class BoxBall
 {
-    private static final int GRAVITY = 3;  // effect of gravity
+    private static final int GRAVITY = 2;  // effect of gravity
     
     private Random rand = new Random();
 
-    private int ballDegradation = 2;
+    private int ballDegradation = 1;
     private Ellipse2D.Double circle;
     private Color color;
     private int diameter;
@@ -29,8 +29,8 @@ public class BoxBall
     private final int leftPosition;                 // x position of left wall
     private final int rightPosition;                // x position of right wall
     private Canvas canvas;
-    private int ySpeed = rand.nextInt(14) - 7;      // initial vertical speed
-    private int xSpeed = rand.nextInt(14) - 7;      // initial lateral speed
+    private int ySpeed = rand.nextInt(30) - 15;      // initial vertical speed
+    private int xSpeed = rand.nextInt(30) - 15;      // initial lateral speed
     
     /**
      * Constructor for objects of class BouncingBall
