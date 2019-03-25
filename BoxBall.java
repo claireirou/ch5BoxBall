@@ -93,36 +93,47 @@ public class BoxBall
         if(yPosition >= (bottomPosition - diameter) && ySpeed > 0) {
            yPosition = (int)(bottomPosition - diameter);
            ySpeed = -ySpeed + ballDegradation;
+           
+           //adjust lateral speed
            if(xSpeed < 0) {
                xSpeed += ballDegradation;
             } else if (xSpeed > 0) {
                xSpeed -= ballDegradation;
             }
         }
+        
         // check if it has hit the top of the box
         if(yPosition <= (topPosition) && ySpeed < 0) {
             yPosition = (int)(topPosition);
             ySpeed = -ySpeed - ballDegradation;
+            
+            //adjust lateral speed
             if(xSpeed < 0) {
                xSpeed += ballDegradation;
             } else if (xSpeed > 0) {
                xSpeed -= ballDegradation;
             }
         }
+        
         //check if it has hit left wall
         if (xPosition <= (leftPosition) && xSpeed < 0) {
             xPosition = (int)(leftPosition);
             xSpeed = -xSpeed + ballDegradation;
+            
+            //adjust vertical speed
             if(ySpeed < 0) {
                ySpeed += ballDegradation;
             } else if (ySpeed > 0) {
                ySpeed -= ballDegradation;
             }
         }
+        
         //check if it has hit right wall
         if (xPosition >= (rightPosition - diameter) && xSpeed > 0) {
             xPosition = (int)(rightPosition - diameter);
             xSpeed = -xSpeed + ballDegradation;
+            
+            //adjust vertical speed
             if(ySpeed < 0) {
                ySpeed += ballDegradation;
             } else if (ySpeed > 0) {
