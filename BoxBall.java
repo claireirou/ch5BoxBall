@@ -3,10 +3,10 @@ import java.awt.geom.*;
 import java.util.Random;
 
 /**
- * Class BoxBall - A simulation of a ball bouncing inside of a box with gravity effect. 
+ * Class BoxBall - A simulation of a ball bouncing inside of a box. 
  * The properties and movement of the ball is determined by the ball itself. The ball 
- * is given a random vertical and lateral speed and will move in that direction and 
- * loose speed over time. The ball will bounce of the walls of a box.
+ * is given a random vertical and lateral speed and will move in that direction until
+ * the ball bounces of the walls of a box.
  *
  * @author Claire Iroudayassamy
  * @version 2019.03.24
@@ -14,11 +14,11 @@ import java.util.Random;
 
 public class BoxBall
 {
-    private static final int GRAVITY = 2;  // effect of gravity
+    
     
     private Random rand = new Random();
 
-    private int ballDegradation = 1;
+    
     private Ellipse2D.Double circle;
     private Color color;
     private int diameter;
@@ -29,8 +29,8 @@ public class BoxBall
     private final int leftPosition;                 // x position of left wall
     private final int rightPosition;                // x position of right wall
     private Canvas canvas;
-    private int ySpeed = rand.nextInt(30) - 15;      // initial vertical speed
-    private int xSpeed = rand.nextInt(30) - 15;      // initial lateral speed
+    private int ySpeed = rand.nextInt(14) - 7;      // initial vertical speed
+    private int xSpeed = rand.nextInt(14) - 7;      // initial lateral speed
     
     /**
      * Constructor for objects of class BouncingBall
@@ -57,6 +57,14 @@ public class BoxBall
         leftPosition = leftPos;
         rightPosition = rightPos;
         canvas = drawingCanvas;
+        
+        // check for zero speed and adjust if needed
+        while(ySpeed == 0) {
+            ySpeed = rand.nextInt(14) -7;
+        }
+        while(xSpeed == 0) {
+            xSpeed = rand.nextInt(14) -7;
+        }
     }
 
     /**
@@ -83,62 +91,33 @@ public class BoxBall
     {
         // remove from canvas at the current position
         erase();
-            
+ 
         // compute new position
-        ySpeed += GRAVITY;
         yPosition += ySpeed;
         xPosition += xSpeed;
 
         // check if it has hit the bottom of the box
-        if(yPosition >= (bottomPosition - diameter) && ySpeed > 0) {
+        if(yPosition >= (bottomPosition - diameter)) {
            yPosition = (int)(bottomPosition - diameter);
-           ySpeed = -ySpeed + ballDegradation;
-           
-           //adjust lateral speed
-           if(xSpeed < 0) {
-               xSpeed += ballDegradation;
-            } else if (xSpeed > 0) {
-               xSpeed -= ballDegradation;
-            }
+           ySpeed = -ySpeed;
         }
         
         // check if it has hit the top of the box
-        if(yPosition <= (topPosition) && ySpeed < 0) {
+        if(yPosition <= (topPosition)) {
             yPosition = (int)(topPosition);
-            ySpeed = -ySpeed - ballDegradation;
-            
-            //adjust lateral speed
-            if(xSpeed < 0) {
-               xSpeed += ballDegradation;
-            } else if (xSpeed > 0) {
-               xSpeed -= ballDegradation;
-            }
+            ySpeed = -ySpeed;
         }
         
         //check if it has hit left wall
-        if (xPosition <= (leftPosition) && xSpeed < 0) {
+        if (xPosition <= (leftPosition)) {
             xPosition = (int)(leftPosition);
-            xSpeed = -xSpeed + ballDegradation;
-            
-            //adjust vertical speed
-            if(ySpeed < 0) {
-               ySpeed += ballDegradation;
-            } else if (ySpeed > 0) {
-               ySpeed -= ballDegradation;
-            }
+            xSpeed = -xSpeed;
         }
         
         //check if it has hit right wall
-        if (xPosition >= (rightPosition - diameter) && xSpeed > 0) {
+        if (xPosition >= (rightPosition - diameter)) {
             xPosition = (int)(rightPosition - diameter);
-            xSpeed = -xSpeed + ballDegradation;
-            
-            //adjust vertical speed
-            if(ySpeed < 0) {
-               ySpeed += ballDegradation;
-            } else if (ySpeed > 0) {
-               ySpeed -= ballDegradation;
-            }
+            xSpeed = -xSpeed;
         }
         
         // draw again at new position
